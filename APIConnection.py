@@ -1,15 +1,16 @@
 import tweepy
 from tweepy import OAuthHandler
 
+
 class APIConnection():
 
-    def __init__(self):
-        self._customerKey = ""
-        self._customerSecret = ""
-        self._accessToken = ""
-        self._accessTokenSecret = ""
+    def __init__(self, customerkey, customersecret, accesstoken, accesstokensecret, connection):
+        self._customerKey = customerkey
+        self._customerSecret = customersecret
+        self._accessToken = accesstoken
+        self._accessTokenSecret = accesstokensecret
         self._auth = None
-        self._connection = None
+        self._connection = connection
 
     def setCustomerKey(self, customerkey):
         self._customerKey = customerkey
