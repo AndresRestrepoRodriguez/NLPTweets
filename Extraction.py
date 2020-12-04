@@ -35,9 +35,10 @@ class Extraction:
             self._query = temporalQuery
 
     def setTweets(self, connection, query, dates):
+        self._tweets = []
         for i in dates:
             for j in query:
-                self._tweets = connection.search(q=j, lang="es", count=100, tweet_mode="extended", until=i)
+                self._tweets += connection.search(q=j, lang="es", count=100, tweet_mode="extended", until=i)
 
     def getPhrases(self):
         return self._phrases

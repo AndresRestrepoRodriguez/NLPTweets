@@ -8,6 +8,7 @@ class ExtractionManager:
     def __init__(self):
         self._dates = list()
         self._credentials = dict()
+        self._dataExtracted = list()
 
     def setCredentials(self, pathfile):
         with open(pathfile, "r") as read_file:
@@ -32,11 +33,14 @@ class ExtractionManager:
         apiconnection.setConnection(auth, apiconnection["access_token"], apiconnection["access_token_secret"], connection)
         return apiconnection.getConnection()
 
-    def generateData(self, parameters, connection):
+    def setDataExtracted(self, parameters, connection):
         extractor = Extraction(parameters["phrases"], parameters["account"], parameters["words"], parameters["hashtags"])
         extractor.setQuery(extractor.getPhrases(), extractor.getWords(), extractor.getHashtags(),
                            extractor.getAccount(), parameters["logicaloption"])
         self.setDates()
         extractor.setTweets(connection, extractor.getQuery(), self.getDates())
-        return extractor.getTweets()
+        self._dataExtracted = extractor.getTweets()
+
+    def getDataExtracted(self):
+        return self._dataExtracted
 
