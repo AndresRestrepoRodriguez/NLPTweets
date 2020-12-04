@@ -37,7 +37,7 @@ class DataCleaning:
 
     @staticmethod
     def toLowerText(text):
-        text = text.lower
+        text = text.lower()
         return text
 
     @staticmethod
@@ -73,7 +73,7 @@ class DataCleaning:
 
     @staticmethod
     def removeBreakLine(text):
-        text = re.sub('\n', ' ', text)
+        text = re.sub("\n", ' ', text)
         return text
 
     @staticmethod
@@ -85,13 +85,14 @@ class DataCleaning:
 
     def pipeCleaning(self, text):
         text = self.toLowerText(text)
-        text = self.removeStopWords(text)
         text = self.removeUrls(text)
+        text = self.removePuntuation(text)
+        text = self.removeStopWords(text)
         text = self.removeExtraCharacters(text)
         text = self.removeAccounts(text)
         text = self.removeHashtags(text)
-        text = self.removeAccent(text)
         text = self.removeBreakLine(text)
+        text = self.removeAccent(text)
         return text
 
     def defineLambdaPipe(self):

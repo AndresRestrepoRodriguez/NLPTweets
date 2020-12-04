@@ -28,9 +28,9 @@ class ExtractionManager:
     @staticmethod
     def generateConnection(credentials, connection):
         apiconnection = APIConnection(credentials["costumer_key"], credentials["consumer_secret"],
-                                      credentials["access_token"], credentials["access_token_secret"])
-        auth = apiconnection.setAuthHandler(apiconnection.getCustomerKey(), apiconnection.getCustomerSecret())
-        apiconnection.setConnection(auth, apiconnection["access_token"], apiconnection["access_token_secret"], connection)
+                                      credentials["access_token"], credentials["access_token_secret"], connection)
+        apiconnection.setConnection(apiconnection.getAccessToken(), apiconnection.getAccessTokenSecret(),
+                                    apiconnection.getCustomerKey(), apiconnection.getCustomerSecret(), connection)
         return apiconnection.getConnection()
 
     def setDataExtracted(self, parameters, connection):

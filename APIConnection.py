@@ -27,8 +27,10 @@ class APIConnection():
     def setAuthHandler(self, customerkey, customersecret):
         self._auth = OAuthHandler(customerkey, customersecret)
 
-    def setConnection(self, auth, accesstoken, accesstokensecret, connection):
+    def setConnection(self, accesstoken, accesstokensecret, customerkey, customersecret, connection):
         if connection is None:
+            self.setAuthHandler(customerkey, customersecret)
+            auth = self.getAuthHandler()
             auth.set_access_token(accesstoken, accesstokensecret)
             self._connection = tweepy.API(auth)
         else:

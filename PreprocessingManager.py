@@ -15,7 +15,7 @@ class PreprocessingManager:
         self._dataPreparation.setDataPrepared(tweets)
         self._dataCleaning.setDataCleaned(self._dataPreparation.getDataPrepared())
         self._dataTransforming.setDataTransformed(self._dataCleaning.getDataCleaned(), pathvectorizer)
-        self._dataProcessed = self._dataTranforming.getDataTransformed()
+        self._dataProcessed = self._dataTransforming.getDataTransformed()
 
     def getDataProcesses(self):
         return self._dataProcessed
