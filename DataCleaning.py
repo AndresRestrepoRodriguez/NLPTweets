@@ -41,6 +41,11 @@ class DataCleaning:
         return text
 
     @staticmethod
+    def removeNumbers(text):
+        text = re.sub(r'[0-9]+', '', text)
+        return text
+
+    @staticmethod
     def removeUrls(text):
         text = re.sub(r'http\S+', '', text, flags=re.MULTILINE)
         return text
@@ -58,7 +63,7 @@ class DataCleaning:
 
     @staticmethod
     def removeExtraCharacters(text):
-        text = re.sub('[‘’“”…«»]', '', text)
+        text = re.sub('[‘’“”…«»)(-]', '', text)
         return text
 
     @staticmethod
@@ -86,6 +91,7 @@ class DataCleaning:
     def pipeCleaning(self, text):
         text = self.toLowerText(text)
         text = self.removeUrls(text)
+        text = self.removeNumbers(text)
         text = self.removePuntuation(text)
         text = self.removeStopWords(text)
         text = self.removeExtraCharacters(text)
