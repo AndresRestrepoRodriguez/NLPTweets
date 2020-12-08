@@ -3,9 +3,9 @@ import numpy as np
 
 class Extraction:
 
-    def __init__(self, phrases, account, words, hashtags):
+    def __init__(self, phrases, accounts, words, hashtags):
         self._phrases = phrases
-        self._account = account
+        self._accounts = accounts
         self._words = words
         self._hashtags = hashtags
         self._query = list()
@@ -14,8 +14,8 @@ class Extraction:
     def setPhrases(self, phrases):
         self._phrases = phrases
 
-    def setAccount(self, account):
-        self._account = account
+    def setAccount(self, accounts):
+        self._accounts = accounts
 
     def setWords(self, words):
         self._words = words
@@ -23,11 +23,9 @@ class Extraction:
     def setHashtags(self, hashtags):
         self._hashtags = hashtags
 
-    def setQuery(self, phrases, words, hashtag, account, logicaloption):
-        if account == "":
-            temporalQuery = phrases + words + hashtag
-        else:
-            temporalQuery = [account] + phrases + words + hashtag
+    def setQuery(self, phrases, words, hashtag, accounts, logicaloption):
+
+        temporalQuery = accounts + phrases + words + hashtag
 
         if logicaloption == "AND":
             self._query = [' '.join(temporalQuery)]
@@ -44,7 +42,7 @@ class Extraction:
         return self._phrases
 
     def getAccount(self):
-        return self._account
+        return self._accounts
 
     def getWords(self):
         return self._words

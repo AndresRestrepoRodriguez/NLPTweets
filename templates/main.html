@@ -15,11 +15,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
-    <!--<script src="../static/js/action.js"></script>-->
+    <script src="../static/js/action.js"></script>
+    <script src="../static/js/sweetalert.min.js"></script>
     <script src="{{ url_for('static', filename='js/action.js') }}"></script>
     <!--<script src="{{ url_for('static', filename='js/Chart.min.js') }}"></script>-->
     <!--<script src="{{ url_for('static', filename='js/graficar.js') }}"></script>-->
-    <script src="{{ url_for('static', filename='js/sweetalert.min.js') }}"></script>
+    <!--<script src="{{ url_for('static', filename='js/sweetalert.min.js') }}"></script>-->
     <script src="http://www.dukelearntoprogram.com/course1/common/js/image/SimpleImage.js"></script>
     <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">-->
     <link rel="stylesheet" href="../static/css/style.css">
@@ -30,9 +31,6 @@
   <body>
     <header>
       <div class="container">
-        <!--<div class="row">
-          <img src="../static/images/fondoappmineria.png" alt="header not found" class="img-fluid">
-        </div>-->
         <section class="row">
           <div class="col-md-3 text-center">
             <img id="lgF" src="../static/images/Escudo_UD.png" alt="img " class="img-fluid">
@@ -68,6 +66,136 @@
         </form>
       </div>
     </nav>
+
+    <br><br><br>
+
+    <div class="container-fluid" id="features">
+      <div class="row text-center">
+        <div class="col">
+            <div class="card">
+              <h5 class="card-header">Palabras</h5>
+              <div class="card-body">
+                <p class="card-text">Explicacion</p>
+                <form class="form-inline">
+                  <div class="form-group ">
+                    <input type="text" class="form-control mr-sm-3" id="words" placeholder="Palabra">
+                  </div>
+                  <button id="addWord" type="button" class="btn btn-outline-info"><i class="fa fa-plus fa-lg" aria-hidden="true"></i></button>
+                </form>
+                <br>
+                <div class="center-block">
+                  <select id="wordAdd" class="form-control offset-md-1" size = 2>
+                </select>
+                </div>
+                <br>
+                <div class="col">
+                    <button id="removeWord" type="button" class="btn btn-outline-info">Eliminar</button>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+              <h5 class="card-header">Frases</h5>
+              <div class="card-body">
+                <p class="card-text">Explicacion</p>
+                <form class="form-inline">
+                  <div class="form-group ">
+                    <input type="text" class="form-control mr-sm-3" id="phrase" placeholder="Frase">
+                  </div>
+                  <button id="addPhrase" type="button" class="btn btn-outline-info"><i class="fa fa-plus fa-lg" aria-hidden="true"></i></button>
+                </form>
+                <br>
+                <div class="center-block">
+                  <select id="phraseAdd" class="form-control offset-md-1" size = 2>
+                </select>
+                </div>
+                <br>
+                <div class="col">
+                    <button id="removePhrase" type="button" class="btn btn-outline-info">Eliminar</button>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="col">
+                    <div class="card">
+                      <h5 class="card-header">Hashtag</h5>
+                      <div class="card-body">
+                        <p class="card-text">Explicacion</p>
+                        <form class="form-inline">
+                          <div class="form-group ">
+                            <input type="text" class="form-control mr-sm-3" id="hashtag" placeholder="Hashtag">
+                          </div>
+                          <button id="addHashtag" type="button" class="btn btn-outline-info"><i class="fa fa-plus fa-lg" aria-hidden="true"></i></button>
+                        </form>
+                        <br>
+                        <div class="center-block">
+                          <select id="hashtagAdd" class="form-control offset-md-1" size = 2>
+                        </select>
+                        </div>
+                        <br>
+                        <div class="col">
+                            <button id="removeHashtag" type="button" class="btn btn-outline-info">Eliminar</button>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+        <div class="col">
+                    <div class="card">
+                      <h5 class="card-header">Cuenta</h5>
+                      <div class="card-body">
+                        <p class="card-text">Explicacion</p>
+                        <form class="form-inline">
+                          <div class="form-group ">
+                            <input type="text" class="form-control mr-sm-3" id="account" placeholder="Cuenta">
+                          </div>
+                          <button id="addAccount" type="button" class="btn btn-outline-info"><i class="fa fa-plus fa-lg" aria-hidden="true"></i></button>
+                        </form>
+                        <br>
+                        <div class="center-block">
+                          <select id="accountAdd" class="form-control offset-md-1" size = 2>
+                        </select>
+                        </div>
+                        <br>
+                        <div class="col">
+                            <button id="removeAccount" type="button" class="btn btn-outline-info">Eliminar</button>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+      </div>
+      <br><br><br>
+      <div class="row text-center">
+        <div class = "col-md-2">
+          <span></span>
+        </div>
+        <div class = "col-md-4">
+          <div class="card">
+              <div class="card-body">
+                <p class="card-text">Explicacion</p>
+                <div class="form-check-inline">
+                  <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="logicalOperator" value="AND" checked="checked" >Conjunción (AND)
+                  </label>
+                </div>
+                <div class="form-check-inline">
+                  <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="logicalOperator" value="OR">Disyunción (OR)
+                  </label>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class = "col-md-1">
+          <span></span>
+        </div>
+        <div class = "col-md-2">
+          <button id="makeAnalysis" type="button" class="btn btn-outline-info btn-lg"><b><i class="fa fa-bar-chart fa-lg" aria-hidden="true"></i> Realizar Análisis</b></button>
+        </div>
+        <div class = "col-md-2">
+          <span></span>
+        </div>
+    </div>
 
     <br><br><br>
 
