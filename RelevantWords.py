@@ -24,7 +24,10 @@ class RelevantWords:
         return self._tfidfMatrix
 
     def setResults(self, tfidfmatrix):
-        self._results = tfidfmatrix[tfidfmatrix["TF-IDF"] > 0].sort_values('TF-IDF', ascending=False).iloc[:10]
+        dfAux = tfidfmatrix[tfidfmatrix["TF-IDF"] > 0].sort_values('TF-IDF', ascending=False).iloc[:5]
+        tfidfValues = dfAux["TF-IDF"].values.tolist()
+        tfidfWords = dfAux.index.tolist()
+        self._results = [tfidfWords, tfidfValues]
 
     def getResults(self):
         return self._results

@@ -26,7 +26,8 @@ class SentimentAnalysis:
         replace = lambda x: "Positivo" if x == 1 else ("Neutro" if x == 0 else "Negativo")
         vf = np.vectorize(replace)
         valuesPred = vf(predictions)
-        self._results = Counter(valuesPred)
+        countSentiment = Counter(valuesPred)
+        self._results = [[*countSentiment.keys()], [*countSentiment.values()]]
 
     def getResults(self):
         return self._results

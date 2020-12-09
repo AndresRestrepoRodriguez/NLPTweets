@@ -57,7 +57,7 @@ class DataCleaning:
 
     @staticmethod
     def removeStopWords(text):
-        stop = stopwords.words('spanish') + ["rt"]
+        stop = stopwords.words('spanish') + ["rt", "%", "rt "]
         text = ' '.join([word for word in text.split() if word not in stop])
         return text
 

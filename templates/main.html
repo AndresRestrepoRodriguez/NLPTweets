@@ -14,10 +14,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
     <script src="../static/js/action.js"></script>
     <script src="../static/js/sweetalert.min.js"></script>
-    <script src="{{ url_for('static', filename='js/action.js') }}"></script>
+    <script src="../static/js/Chart.min.js"></script>
+    <script src="../static/js/graficar.js"></script>
+    <script src="../static/js/downloadImages.js"></script>
     <!--<script src="{{ url_for('static', filename='js/Chart.min.js') }}"></script>-->
     <!--<script src="{{ url_for('static', filename='js/graficar.js') }}"></script>-->
     <!--<script src="{{ url_for('static', filename='js/sweetalert.min.js') }}"></script>-->
@@ -195,6 +196,89 @@
         <div class = "col-md-2">
           <span></span>
         </div>
+    </div>
+      <br>
+      <hr>
+      <br><br><br>
+    </div>
+
+    <div class="container text-center" id="analysis">
+      <h2 class="text-center">Análisis de Datos</h2>
+      <br>
+      <p class="text-center">El siguiente análisis de datos presentado se realizó para los últimos siete días</p>
+      <p class="text-center">Nota: Cuando se pasa el puntero por encima de las gráficas se puede observar cada uno de sus valores</p>
+      <hr>
+      <br>
+      <div class="row justify-content-center" id="sentimentAnalysis">
+        <br><br><br>
+        <h3 class="text-center">Análisis de Sentimientos</h3>
+        <br>
+        <p class="text-center">Este ítem del análisis de datos, tiene como finalidad presentar las palabras que se mencionan con mayor frencuencia en el ámbito enmarcado de los términos filtrados</p>
+        <hr>
+        <br>
+        <div class="col">
+         <canvas id="popChart"></canvas>
+         <div class="center-block form-group" align="center">
+           <label id="labelFormat" for="formatoUno" class="d-inline-block">Formato</label>
+           <select id="formatoUno" class="d-inline-block">
+              <option value="png">png</option>
+              <option value="jpeg">jpeg</option>
+              <option value="bmp">bmp</option>
+              <option value="tiff">tiff</option>
+           </select>
+           <button id="downloadCanvasUno" type="button" class="btn d-inline-block">Descargar</button>
+          </div>
+        </div>
+        <div class="col">
+         <canvas id="popChartDos"></canvas>
+         <div class="center-block form-group" align="center">
+           <label id="labelFormat" for="formatoDos" class="d-inline-block">Formato</label>
+           <select id="formatoDos" class="d-inline-block">
+              <option value="png">png</option>
+              <option value="jpeg">jpeg</option>
+              <option value="bmp">bmp</option>
+              <option value="tiff">tiff</option>
+           </select>
+           <button id="downloadCanvasDos" type="button" class="btn d-inline-block">Descargar</button>
+          </div>
+        </div>
+      </div>
+      <hr/>
+      <br><br><br>
+      <div class="row justify-content-center" id="relevantWords">
+        <br><br><br>
+        <h3 class="text-center">Palabras Relevantes</h3>
+        <br>
+        <p class="text-center">Este ítem del análisis de datos, tiene como finalidad presentar las palabras que se mencionan con mayor frencuencia en el ámbito enmarcado de los términos filtrados</p>
+        <hr>
+        <br>
+        <div class="col">
+         <canvas id="popChartTres"></canvas>
+         <div class="center-block form-group" align="center">
+           <label id="labelFormat" for="formatoUno" class="d-inline-block">Formato</label>
+           <select id="formatoTres" class="d-inline-block">
+              <option value="png">png</option>
+              <option value="jpeg">jpeg</option>
+              <option value="bmp">bmp</option>
+              <option value="tiff">tiff</option>
+           </select>
+           <button id="downloadCanvasTres" type="button" class="btn d-inline-block">Descargar</button>
+          </div>
+        </div>
+        <div class="col">
+         <canvas id="popChartCuatro"></canvas>
+         <div class="center-block form-group" align="center">
+           <label id="labelFormat" for="formatoDos" class="d-inline-block">Formato</label>
+           <select id="formatoCuatro" class="d-inline-block">
+              <option value="png">png</option>
+              <option value="jpeg">jpeg</option>
+              <option value="bmp">bmp</option>
+              <option value="tiff">tiff</option>
+           </select>
+           <button id="downloadCanvasCuatro" type="button" class="btn d-inline-block">Descargar</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <br><br><br>

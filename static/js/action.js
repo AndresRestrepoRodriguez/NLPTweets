@@ -4,15 +4,13 @@ $(document).ready(function() {
   var popCanvasDos = $("#popChartDos");
   var popCanvasTres = $("#popChartTres");
   var popCanvasCuatro = $("#popChartCuatro");
-  var popCanvasCinco = $("#popChartCinco");
-  var popCanvasSeis = $("#popChartSeis");
   var contadorAnalizar=0;
   var graficoUno;
   var graficoDos;
   var graficoTres;
   var graficoCuatro;
-  var graficoCinco;
-  var graficoSeis;
+
+  $('#analysis').hide();
 
     $( "#addWord" ).click(function() {
     if (!$('#words').val()){
@@ -119,35 +117,97 @@ $(document).ready(function() {
       }
       else{
         contadorAnalizar++;
-        /*
         if (contadorAnalizar > 1){
 
           graficoUno.destroy();
           graficoDos.destroy();
           graficoTres.destroy();
           graficoCuatro.destroy();
-          graficoCinco.destroy();
-          graficoSeis.destroy();
 
-        }*/
+        }
 
-        var words = $("#wordAdd>option").map(function() { return $(this).val(); });
-        var phrases = $("#phraseAdd>option").map(function() { return $(this).val(); });
-        var hashtags = $("#hashtagAdd>option").map(function() { return $(this).val(); });
-        var accounts = $("#accountAdd>option").map(function() { return $(this).val(); });
+        var lang = []
+        lang.push("hola")
+        lang.push("mundo")
+
+        var words = new Array();
+        $('#wordAdd option').each(function() {
+                words.push($(this).val());
+            });
+        var phrases = new Array();
+        $('#phraseAdd option').each(function() {
+                phrases.push($(this).val());
+            });
+
+        var hashtags = new Array();
+        $('#hashtagAdd option').each(function() {
+                hashtags.push($(this).val());
+        });
+
+        var accounts = new Array();
+        $('#accountAdd option').each(function() {
+                accounts.push($(this).val());
+        });
         var logicaloption = $("input[name='logicalOperator']:checked").val();
         var json_text = '{}';
+        var json_2 = '{"prueba" : "andres"}'
+        var ob = JSON.parse(json_2)
         const obj_data = JSON.parse(json_text);
         obj_data["words"] = words;
         obj_data["phrases"] = phrases;
         obj_data["account"] = accounts;
         obj_data["hashtags"] = hashtags;
         obj_data["logicaloption"] = logicaloption;
+        console.log(obj_data)
+        $.ajax({
+        type : 'POST',
+        dataType: "JSON",
+        data : JSON.stringify(obj_data),
+        contentType: "application/json; charset=utf-8",
+        url : '/analytics'
+        })
+        .done(function(data) {
+        if(data.response == "Error"){
+          swal({
+                 title: "Oops!",
+                 text: data.mensaje,
+                 icon: "error"
+               });
+        }
+        else{
+           console.log(data.sentimentkeys)
+           console.log(data.sentimentvalues)
+           console.log(data.tfidfwords)
+           console.log(data.tfidfvalues)
+           $('#analysis').show();
+           graficoUno=graficarSentimientosBar(popCanvas,data.sentimentvalues,data.sentimentkeys);
+           graficoDos=graficarSentimientosPie(popCanvasDos,data.sentimentvalues,data.sentimentkeys);
+           graficoTres=graficarPalabrasRepetidas(popCanvasTres,data.tfidfvalues,data.tfidfwords);
+           graficoCuatro=graficarPalabrasRepetidasPie(popCanvasCuatro,data.tfidfvalues,data.tfidfwords);
+           }
+    });
+        }
+    });
 
+    $( "#downloadCanvasUno" ).click(function() {
+      formatoUno=$("#formatoUno").val();
+      download_image("popChart",formatoUno);
+    });
 
+    $( "#downloadCanvasDos" ).click(function() {
+      formatoDos=$("#formatoDos").val();
+      download_image("popChartDos",formatoDos);
+    });
 
-      }
-    })
+    $( "#downloadCanvasTres" ).click(function() {
+      formatoTres=$("#formatoTres").val();
+      download_image("popChartTres",formatoTres);
+    });
+
+    $( "#downloadCanvasCuatro" ).click(function() {
+      formatoCuatro=$("#formatoCuatro").val();
+      download_image("popChartCuatro",formatoCuatro);
+    });
 
 
 });
