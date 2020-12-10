@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>AppSelection</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.2.8/d3.min.js"></script>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js" integrity="sha384-feJI7QwhOS+hwpX2zkaeJQjeiwlhOP+SdQDqhgvvo1DsjtiSQByFdThsxO669S2D" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/javascript.util/0.12.12/javascript.util.min.js"></script>
+    <script src="https://files.codepedia.info/files/uploads/iScripts/html2canvas.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.1/dist/html2canvas.min.js"></script>
+    <script src="../static/js/action.js"></script>
+    <script src="../static/js/sweetalert.min.js"></script>
+    <script src="../static/js/Chart.min.js"></script>
+    <script src="../static/js/graficar.js"></script>
+    <script src="../static/js/downloadImages.js"></script>
+    <!--<script src="{{ url_for('static', filename='js/Chart.min.js') }}"></script>-->
+    <!--<script src="{{ url_for('static', filename='js/graficar.js') }}"></script>-->
+    <!--<script src="{{ url_for('static', filename='js/sweetalert.min.js') }}"></script>-->
+    <script src="http://www.dukelearntoprogram.com/course1/common/js/image/SimpleImage.js"></script>
+    <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">-->
+    <link rel="stylesheet" href="../static/css/style.css">
+  </head>
+
+
+
+  <body>
+    <header>
+      <div class="container">
+        <section class="row">
+          <div class="col-md-3 text-center">
+            <img id="lgF" src="../static/images/Escudo_UD.png" alt="img " class="img-fluid">
+          </div>
+          <div class="col-md-6 text-center">
+            <!--<img id="caron" src="{{ url_for('static', filename='images/logoProducto.png') }}" alt="img caron" class="img-fluid">-->
+            <!--<img id="caron" src="../static/images/logoapp.png" alt="img caron" class="img-fluid">-->
+            <h1 class="text-center" id = 'tituloapp' >NLPTweets</h1>
+          </div>
+          <div class="col-md-3 text-center">
+            <!--<img id="lgF" src="{{ url_for('static', filename='images/Escudo_UD.png') }}" alt="img " class="img-fluid">-->
+            <img id="lgF" src="../static/images/Escudo_UD.png" alt="img " class="img-fluid">
+          </div>
+        </section>
+      </div>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Home</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="manuales">Manuals <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+
+    <br><br><br>
+
+    <div class="container-fluid" id="features">
+      <div class="row text-center">
+        <div class="col">
+            <div class="card">
+              <h5 class="card-header">Palabras</h5>
+              <div class="card-body">
+                <p class="card-text">Ingrese las palabras que desea que se incluyan en la búsqueda</p>
+                <form class="form-inline">
+                  <div class="form-group ">
+                    <input type="text" class="form-control mr-sm-3" id="words" placeholder="Palabra">
+                  </div>
+                  <button id="addWord" type="button" class="btn btn-outline-info"><i class="fa fa-plus fa-lg" aria-hidden="true"></i></button>
+                </form>
+                <br>
+                <div class="center-block">
+                  <select id="wordAdd" class="form-control offset-md-1" size = 2>
+                </select>
+                </div>
+                <br>
+                <div class="col">
+                    <button id="removeWord" type="button" class="btn btn-outline-info">Eliminar</button>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+              <h5 class="card-header">Frases</h5>
+              <div class="card-body">
+                <p class="card-text">Ingrese las frases que desea que se incluyan en la búsqueda</p>
+                <form class="form-inline">
+                  <div class="form-group ">
+                    <input type="text" class="form-control mr-sm-3" id="phrase" placeholder="Frase">
+                  </div>
+                  <button id="addPhrase" type="button" class="btn btn-outline-info"><i class="fa fa-plus fa-lg" aria-hidden="true"></i></button>
+                </form>
+                <br>
+                <div class="center-block">
+                  <select id="phraseAdd" class="form-control offset-md-1" size = 2>
+                </select>
+                </div>
+                <br>
+                <div class="col">
+                    <button id="removePhrase" type="button" class="btn btn-outline-info">Eliminar</button>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="col">
+                    <div class="card">
+                      <h5 class="card-header">Hashtag</h5>
+                      <div class="card-body">
+                        <p class="card-text">Ingrese los hashtag que desea que se incluyan en la búsqueda</p>
+                        <form class="form-inline">
+                          <div class="form-group ">
+                            <input type="text" class="form-control mr-sm-3" id="hashtag" placeholder="Hashtag">
+                          </div>
+                          <button id="addHashtag" type="button" class="btn btn-outline-info"><i class="fa fa-plus fa-lg" aria-hidden="true"></i></button>
+                        </form>
+                        <br>
+                        <div class="center-block">
+                          <select id="hashtagAdd" class="form-control offset-md-1" size = 2>
+                        </select>
+                        </div>
+                        <br>
+                        <div class="col">
+                            <button id="removeHashtag" type="button" class="btn btn-outline-info">Eliminar</button>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+        <div class="col">
+                    <div class="card">
+                      <h5 class="card-header">Cuenta</h5>
+                      <div class="card-body">
+                        <p class="card-text">Ingrese las cuentas que desea que se incluyan en la búsqueda</p>
+                        <form class="form-inline">
+                          <div class="form-group ">
+                            <input type="text" class="form-control mr-sm-3" id="account" placeholder="Cuenta">
+                          </div>
+                          <button id="addAccount" type="button" class="btn btn-outline-info"><i class="fa fa-plus fa-lg" aria-hidden="true"></i></button>
+                        </form>
+                        <br>
+                        <div class="center-block">
+                          <select id="accountAdd" class="form-control offset-md-1" size = 2>
+                        </select>
+                        </div>
+                        <br>
+                        <div class="col">
+                            <button id="removeAccount" type="button" class="btn btn-outline-info">Eliminar</button>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+      </div>
+      <br><br><br>
+      <div class="row text-center">
+        <div class = "col-md-1">
+          <span></span>
+        </div>
+        <div class = "col-md-6">
+          <div class="card">
+            <h5 class="card-header">Filtrado</h5>
+              <div class="card-body">
+                <p class="card-text">Seleccione la manera en que desea que las palabras, frases, hashtag y cuentas sean filtradas. Conjunción implica que los tweets contengan cada una de los términos, mientras que, Disyunción generará una recopilación de tweets por cada término</p>
+                <div class="form-check-inline">
+                  <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="logicalOperator" value="AND" checked="checked" >Conjunción (AND)
+                  </label>
+                </div>
+                <div class="form-check-inline">
+                  <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="logicalOperator" value="OR">Disyunción (OR)
+                  </label>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class = "col-md-1">
+          <span></span>
+        </div>
+        <div class = "col-md-2">
+          <button id="makeAnalysis" type="button" class="btn btn-outline-info btn-lg"><b><i class="fa fa-bar-chart fa-lg" aria-hidden="true"></i> Realizar Análisis</b></button>
+        </div>
+        <div class = "col-md-1">
+          <span></span>
+        </div>
+    </div>
+      <br>
+      <hr>
+      <br><br><br>
+    </div>
+
+    <div class="container text-center" id="analysis">
+      <h2 class="text-center">Análisis de Datos</h2>
+      <br>
+      <p class="text-center">El siguiente análisis de datos presentado se realizó para los últimos siete días</p>
+      <p class="text-center">Nota: Cuando se pasa el puntero por encima de las gráficas se puede observar cada uno de sus valores</p>
+      <hr>
+      <br>
+      <div class="row justify-content-center" id="sentimentAnalysis">
+        <br><br><br>
+        <h3 class="text-center">Análisis de Sentimientos</h3>
+        <br>
+        <p class="text-center">Este ítem del análisis de datos, tiene como finalidad presentar el consolidado de la intención o sentimiento que tienen los tweets recopilados. Par esto, se utiliza un modelo de regresión logística propio el cual presenta alrededor de 90% de precisión global</p>
+        <hr>
+        <br>
+        <div class="col">
+         <canvas id="popChart"></canvas>
+         <div class="center-block form-group" align="center">
+           <label id="labelFormat" for="formatoUno" class="d-inline-block">Formato</label>
+           <select id="formatoUno" class="d-inline-block">
+              <option value="png">png</option>
+              <option value="jpeg">jpeg</option>
+              <option value="bmp">bmp</option>
+              <option value="tiff">tiff</option>
+           </select>
+           <button id="downloadCanvasUno" type="button" class="btn btn-outline-info d-inline-block">Descargar</button>
+          </div>
+        </div>
+        <div class="col">
+         <canvas id="popChartDos"></canvas>
+         <div class="center-block form-group" align="center">
+           <label id="labelFormat" for="formatoDos" class="d-inline-block">Formato</label>
+           <select id="formatoDos" class="d-inline-block">
+              <option value="png">png</option>
+              <option value="jpeg">jpeg</option>
+              <option value="bmp">bmp</option>
+              <option value="tiff">tiff</option>
+           </select>
+           <button id="downloadCanvasDos" type="button" class="btn btn-outline-info d-inline-block">Descargar</button>
+          </div>
+        </div>
+      </div>
+      <hr/>
+      <br><br><br>
+      <div class="row justify-content-center" id="relevantWords">
+        <br><br><br>
+        <h3 class="text-center">Palabras Relevantes</h3>
+        <br>
+        <p class="text-center">Este ítem del análisis de datos, tiene como finalidad presentar las palabras más relevantes o características de los tweets recopilados. Lo anterior, haciendo uso del índice Term Frecuency - Inverse Document Frequency (TF-IDF)</p>
+        <hr>
+        <br>
+        <div class="col">
+         <canvas id="popChartTres"></canvas>
+         <div class="center-block form-group" align="center">
+           <label id="labelFormat" for="formatoUno" class="d-inline-block">Formato</label>
+           <select id="formatoTres" class="d-inline-block">
+              <option value="png">png</option>
+              <option value="jpeg">jpeg</option>
+              <option value="bmp">bmp</option>
+              <option value="tiff">tiff</option>
+           </select>
+           <button id="downloadCanvasTres" type="button" class="btn btn-outline-info d-inline-block">Descargar</button>
+          </div>
+        </div>
+        <div class="col">
+         <canvas id="popChartCuatro"></canvas>
+         <div class="center-block form-group" align="center">
+           <label id="labelFormat" for="formatoDos" class="d-inline-block">Formato</label>
+           <select id="formatoCuatro" class="d-inline-block">
+              <option value="png">png</option>
+              <option value="jpeg">jpeg</option>
+              <option value="bmp">bmp</option>
+              <option value="tiff">tiff</option>
+           </select>
+           <button id="downloadCanvasCuatro" type="button" class="btn btn-outline-info d-inline-block">Descargar</button>
+          </div>
+        </div>
+      </div>
+      <hr/>
+      <br><br><br>
+      <div class="row justify-content-center" id="mailing">
+        <div class="col-md-3"><span></span></div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="emailUser">Email address</label>
+            <input type="email" class="form-control" id="emailUser" aria-describedby="emailHelp" placeholder="Enter email">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <button id="sendMail" type="button" class="btn btn-outline-info btn-lg"><b><i class="fa fa-bar-chart fa-lg" aria-hidden="true"></i> Enviar a Correo</b></button>
+        </div>
+        <div class="col-md-3"><span></span></div>
+      </div>
+    </div>
+
+
+    <div id="contact">Contact</div>
+        <div id="contactForm">
+          <h1>Por favor espere un momento</h1>
+          <h1>Se están procesando los datos</h1>
+          <img id="loadingGIF" src="{{ url_for('static', filename='images/load-image.gif') }}" alt="img caron" class="img-responsive img-fluid center-block" height="200" width="200">
+          <br>
+          <h5 text-align="center">Este proceso puede tomar algunos minutos, dependiendo de la cantidad de tweets recopilados</h5>
+    </div>
+
+    <br><br><br>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 card text-white bg-dark" id="zonCopyRight">
+          <div class="card-body">
+            <p class="card-text" align="center">Andrés Restrepo <i class="fa fa-copyright" aria-hidden="true"></i> 2020-2021</p>
+            <p class="card-text" align="center">Ingeniería de Software II</p>
+            <p class="card-text" align="center">Maestría en Ciencias de la Información y las Comunicaciones</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  </body>
+
+</html>
