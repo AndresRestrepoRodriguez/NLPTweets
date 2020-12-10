@@ -8,8 +8,8 @@ from SMTPConnection import SMTPConnection
 class Mailing:
 
     def __init__(self):
-        self._sender = "andrescisf29@gmail.com"
-        self._password = "sistemas2013"
+        self._sender = "xxxxx@gmail.com"
+        self._password = "password"
         self._body = "Prueba de correo"
         self._subject = "Subject prueba"
         self._receiver = ""
