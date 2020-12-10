@@ -106,7 +106,8 @@ class DataCleaning:
 
     def setDataCleaned(self, dataprepared):
         pipeClean = self.defineLambdaPipe()
-        self._dataCleaned = pd.DataFrame(dataprepared["text"].apply(pipeClean))
+        dfCleaned = pd.DataFrame(dataprepared["text"].apply(pipeClean))
+        self._dataCleaned = dfCleaned.drop_duplicates()
 
     def getDataCleaned(self):
         return self._dataCleaned

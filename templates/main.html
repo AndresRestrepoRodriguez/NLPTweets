@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.1/dist/html2canvas.min.js"></script>
     <script src="../static/js/action.js"></script>
     <script src="../static/js/sweetalert.min.js"></script>
     <script src="../static/js/Chart.min.js"></script>
@@ -39,7 +41,7 @@
           <div class="col-md-6 text-center">
             <!--<img id="caron" src="{{ url_for('static', filename='images/logoProducto.png') }}" alt="img caron" class="img-fluid">-->
             <!--<img id="caron" src="../static/images/logoapp.png" alt="img caron" class="img-fluid">-->
-            <h1 class="text-center" id = 'tituloapp' >App-EntropySelection</h1>
+            <h1 class="text-center" id = 'tituloapp' >NLPTweets</h1>
           </div>
           <div class="col-md-3 text-center">
             <!--<img id="lgF" src="{{ url_for('static', filename='images/Escudo_UD.png') }}" alt="img " class="img-fluid">-->
@@ -76,7 +78,7 @@
             <div class="card">
               <h5 class="card-header">Palabras</h5>
               <div class="card-body">
-                <p class="card-text">Explicacion</p>
+                <p class="card-text">Ingrese las palabras que desea que se incluyan en la búsqueda</p>
                 <form class="form-inline">
                   <div class="form-group ">
                     <input type="text" class="form-control mr-sm-3" id="words" placeholder="Palabra">
@@ -99,7 +101,7 @@
             <div class="card">
               <h5 class="card-header">Frases</h5>
               <div class="card-body">
-                <p class="card-text">Explicacion</p>
+                <p class="card-text">Ingrese las frases que desea que se incluyan en la búsqueda</p>
                 <form class="form-inline">
                   <div class="form-group ">
                     <input type="text" class="form-control mr-sm-3" id="phrase" placeholder="Frase">
@@ -122,7 +124,7 @@
                     <div class="card">
                       <h5 class="card-header">Hashtag</h5>
                       <div class="card-body">
-                        <p class="card-text">Explicacion</p>
+                        <p class="card-text">Ingrese los hashtag que desea que se incluyan en la búsqueda</p>
                         <form class="form-inline">
                           <div class="form-group ">
                             <input type="text" class="form-control mr-sm-3" id="hashtag" placeholder="Hashtag">
@@ -145,7 +147,7 @@
                     <div class="card">
                       <h5 class="card-header">Cuenta</h5>
                       <div class="card-body">
-                        <p class="card-text">Explicacion</p>
+                        <p class="card-text">Ingrese las cuentas que desea que se incluyan en la búsqueda</p>
                         <form class="form-inline">
                           <div class="form-group ">
                             <input type="text" class="form-control mr-sm-3" id="account" placeholder="Cuenta">
@@ -167,13 +169,14 @@
       </div>
       <br><br><br>
       <div class="row text-center">
-        <div class = "col-md-2">
+        <div class = "col-md-1">
           <span></span>
         </div>
-        <div class = "col-md-4">
+        <div class = "col-md-6">
           <div class="card">
+            <h5 class="card-header">Filtrado</h5>
               <div class="card-body">
-                <p class="card-text">Explicacion</p>
+                <p class="card-text">Seleccione la manera en que desea que las palabras, frases, hashtag y cuentas sean filtradas. Conjunción implica que los tweets contengan cada una de los términos, mientras que, Disyunción generará una recopilación de tweets por cada término</p>
                 <div class="form-check-inline">
                   <label class="form-check-label">
                     <input type="radio" class="form-check-input" name="logicalOperator" value="AND" checked="checked" >Conjunción (AND)
@@ -193,7 +196,7 @@
         <div class = "col-md-2">
           <button id="makeAnalysis" type="button" class="btn btn-outline-info btn-lg"><b><i class="fa fa-bar-chart fa-lg" aria-hidden="true"></i> Realizar Análisis</b></button>
         </div>
-        <div class = "col-md-2">
+        <div class = "col-md-1">
           <span></span>
         </div>
     </div>
@@ -213,7 +216,7 @@
         <br><br><br>
         <h3 class="text-center">Análisis de Sentimientos</h3>
         <br>
-        <p class="text-center">Este ítem del análisis de datos, tiene como finalidad presentar las palabras que se mencionan con mayor frencuencia en el ámbito enmarcado de los términos filtrados</p>
+        <p class="text-center">Este ítem del análisis de datos, tiene como finalidad presentar el consolidado de la intención o sentimiento que tienen los tweets recopilados. Par esto, se utiliza un modelo de regresión logística propio el cual presenta alrededor de 90% de precisión global</p>
         <hr>
         <br>
         <div class="col">
@@ -226,7 +229,7 @@
               <option value="bmp">bmp</option>
               <option value="tiff">tiff</option>
            </select>
-           <button id="downloadCanvasUno" type="button" class="btn d-inline-block">Descargar</button>
+           <button id="downloadCanvasUno" type="button" class="btn btn-outline-info d-inline-block">Descargar</button>
           </div>
         </div>
         <div class="col">
@@ -239,7 +242,7 @@
               <option value="bmp">bmp</option>
               <option value="tiff">tiff</option>
            </select>
-           <button id="downloadCanvasDos" type="button" class="btn d-inline-block">Descargar</button>
+           <button id="downloadCanvasDos" type="button" class="btn btn-outline-info d-inline-block">Descargar</button>
           </div>
         </div>
       </div>
@@ -249,7 +252,7 @@
         <br><br><br>
         <h3 class="text-center">Palabras Relevantes</h3>
         <br>
-        <p class="text-center">Este ítem del análisis de datos, tiene como finalidad presentar las palabras que se mencionan con mayor frencuencia en el ámbito enmarcado de los términos filtrados</p>
+        <p class="text-center">Este ítem del análisis de datos, tiene como finalidad presentar las palabras más relevantes o características de los tweets recopilados. Lo anterior, haciendo uso del índice Term Frecuency - Inverse Document Frequency (TF-IDF)</p>
         <hr>
         <br>
         <div class="col">
@@ -262,7 +265,7 @@
               <option value="bmp">bmp</option>
               <option value="tiff">tiff</option>
            </select>
-           <button id="downloadCanvasTres" type="button" class="btn d-inline-block">Descargar</button>
+           <button id="downloadCanvasTres" type="button" class="btn btn-outline-info d-inline-block">Descargar</button>
           </div>
         </div>
         <div class="col">
@@ -275,10 +278,36 @@
               <option value="bmp">bmp</option>
               <option value="tiff">tiff</option>
            </select>
-           <button id="downloadCanvasCuatro" type="button" class="btn d-inline-block">Descargar</button>
+           <button id="downloadCanvasCuatro" type="button" class="btn btn-outline-info d-inline-block">Descargar</button>
           </div>
         </div>
       </div>
+      <hr/>
+      <br><br><br>
+      <div class="row justify-content-center" id="mailing">
+        <div class="col-md-3"><span></span></div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="emailUser">Email address</label>
+            <input type="email" class="form-control" id="emailUser" aria-describedby="emailHelp" placeholder="Enter email">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <button id="sendMail" type="button" class="btn btn-outline-info btn-lg"><b><i class="fa fa-bar-chart fa-lg" aria-hidden="true"></i> Enviar a Correo</b></button>
+        </div>
+        <div class="col-md-3"><span></span></div>
+      </div>
+    </div>
+
+
+    <div id="contact">Contact</div>
+        <div id="contactForm">
+          <h1>Por favor espere un momento</h1>
+          <h1>Se están procesando los datos</h1>
+          <img id="loadingGIF" src="{{ url_for('static', filename='images/load-image.gif') }}" alt="img caron" class="img-responsive img-fluid center-block" height="200" width="200">
+          <br>
+          <h5 text-align="center">Este proceso puede tomar algunos minutos, dependiendo de la cantidad de tweets recopilados</h5>
     </div>
 
     <br><br><br>
@@ -287,8 +316,8 @@
       <div class="row">
         <div class="col-md-12 card text-white bg-dark" id="zonCopyRight">
           <div class="card-body">
-            <p class="card-text" align="center">Maddyzeth Ariza & Andrés Restrepo <i class="fa fa-copyright" aria-hidden="true"></i> 2020-2021</p>
-            <p class="card-text" align="center">Minería de datos</p>
+            <p class="card-text" align="center">Andrés Restrepo <i class="fa fa-copyright" aria-hidden="true"></i> 2020-2021</p>
+            <p class="card-text" align="center">Ingeniería de Software II</p>
             <p class="card-text" align="center">Maestría en Ciencias de la Información y las Comunicaciones</p>
           </div>
         </div>

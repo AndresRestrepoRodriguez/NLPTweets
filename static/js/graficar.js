@@ -18,7 +18,7 @@ function graficarPalabrasRepetidas(canvas,data,labels){
     options: {
         title: {
             display: true,
-            text: 'Palabras más Repetidas'
+            text: 'Palabras más Relevantes - Índice TF-IDF'
         },
         scales: {
           xAxes: [{
@@ -30,7 +30,7 @@ function graficarPalabrasRepetidas(canvas,data,labels){
                 },
               scaleLabel: {
                 display: true,
-                labelString: 'Frecuencia'
+                labelString: 'Índice TF-IDF'
               }
           }],
           yAxes: [{
@@ -68,7 +68,7 @@ function graficarPalabrasRepetidasPie(canvas,data,labels){
     options: {
         title: {
             display: true,
-            text: 'Palabras más Repetidas'
+            text: 'Palabras más Relevantes - Índice TF-IDF'
 
         }
 
@@ -96,20 +96,20 @@ function graficarSentimientosBar(canvas,data,labels){
     options: {
         title: {
             display: true,
-            text: 'Palabras más Repetidas'
+            text: 'Tweets por tipo de sentimiento'
         },
         scales: {
           xAxes: [{
               position: 'bottom',
               scaleLabel: {
                 display: true,
-                labelString: 'Frecuencia'
+                labelString: 'Cantidad (Tweets)'
               }
           }],
           yAxes: [{
               scaleLabel: {
                 display: true,
-                labelString: 'Palabras'
+                labelString: 'Sentimiento'
               }
           }]
 
@@ -139,7 +139,7 @@ function graficarSentimientosPie(canvas,data,labels){
     options: {
         title: {
             display: true,
-            text: 'Palabras más Repetidas'
+            text: 'Tweets por tipo de sentimiento'
 
         }
 

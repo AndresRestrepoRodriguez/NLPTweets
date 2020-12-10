@@ -25,13 +25,11 @@ class DataTransformation:
         return self._dataSentimentAnalysis
 
     def setDataRelevantWords(self, datacleaned):
-        print(datacleaned['text'].values[:4])
         lemmaTemporal = []
         nlp = spacy.load('es')
         for i in datacleaned['text'].values:
             tokTemporal = nlp(i)
             lemmaTemporal.append(" ".join([tok.lemma_.lower() for tok in tokTemporal]))
-        print(lemmaTemporal[:4])
         self._dataRelevantWords = np.array(lemmaTemporal)
 
     def getDataRelevantWords(self):

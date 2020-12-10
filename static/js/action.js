@@ -11,6 +11,7 @@ $(document).ready(function() {
   var graficoCuatro;
 
   $('#analysis').hide();
+  $('#contact').css("display", "none");
 
     $( "#addWord" ).click(function() {
     if (!$('#words').val()){
@@ -118,11 +119,11 @@ $(document).ready(function() {
       else{
         contadorAnalizar++;
         if (contadorAnalizar > 1){
-
           graficoUno.destroy();
           graficoDos.destroy();
           graficoTres.destroy();
           graficoCuatro.destroy();
+          $('#analysis').hide();
 
         }
 
@@ -130,28 +131,27 @@ $(document).ready(function() {
         lang.push("hola")
         lang.push("mundo")
 
-        var words = new Array();
+        var words = [];
         $('#wordAdd option').each(function() {
                 words.push($(this).val());
             });
-        var phrases = new Array();
+        var phrases = [];
         $('#phraseAdd option').each(function() {
                 phrases.push($(this).val());
             });
 
-        var hashtags = new Array();
+        var hashtags = [];
         $('#hashtagAdd option').each(function() {
                 hashtags.push($(this).val());
         });
 
-        var accounts = new Array();
+        var accounts = [];
         $('#accountAdd option').each(function() {
                 accounts.push($(this).val());
         });
+        $('#contactForm').fadeToggle();
         var logicaloption = $("input[name='logicalOperator']:checked").val();
         var json_text = '{}';
-        var json_2 = '{"prueba" : "andres"}'
-        var ob = JSON.parse(json_2)
         const obj_data = JSON.parse(json_text);
         obj_data["words"] = words;
         obj_data["phrases"] = phrases;
@@ -168,6 +168,8 @@ $(document).ready(function() {
         })
         .done(function(data) {
         if(data.response == "Error"){
+        contadorAnalizar++;
+            $('#contactForm').fadeToggle();
           swal({
                  title: "Oops!",
                  text: data.mensaje,
@@ -175,6 +177,7 @@ $(document).ready(function() {
                });
         }
         else{
+           contadorAnalizar++;
            console.log(data.sentimentkeys)
            console.log(data.sentimentvalues)
            console.log(data.tfidfwords)
@@ -184,6 +187,7 @@ $(document).ready(function() {
            graficoDos=graficarSentimientosPie(popCanvasDos,data.sentimentvalues,data.sentimentkeys);
            graficoTres=graficarPalabrasRepetidas(popCanvasTres,data.tfidfvalues,data.tfidfwords);
            graficoCuatro=graficarPalabrasRepetidasPie(popCanvasCuatro,data.tfidfvalues,data.tfidfwords);
+           $('#contactForm').fadeToggle();
            }
     });
         }
@@ -209,5 +213,50 @@ $(document).ready(function() {
       download_image("popChartCuatro",formatoCuatro);
     });
 
+    $( "#sendMail" ).click(function() {
+        var doc = new jsPDF();
+        var specialElementHandlers = {
+            '#editor': function (element, renderer) {
+                return true;
+            }
+        };
+         doc.fromHTML($('#analysis').html(), 15, 15, {
+            'width': 170,
+            'elementHandlers': specialElementHandlers
+            });
+         doc.save('analysis.pdf');
+        console.log('before');
+        wait(7000);  //7 seconds in milliseconds
+        console.log('after');
+        email=$('#emailUser').val();
+        var json_text = '{}';
+        const obj_data = JSON.parse(json_text);
+        obj_data["emailuser"] = email;
+        $.ajax({
+        type : 'POST',
+        data : obj_data,
+        url : '/sendmail'
+        }).done(function(data) {
+        if(data.response == "Error"){
+          swal({
+                 title: "Oops!",
+                 text: "no se pudo enviar el email",
+                 icon: "error"
+               });
+        }
+        else{
+           console.log(data.response)
+           }
+    });
+    });
+
 
 });
+
+function wait(ms){
+   var start = new Date().getTime();
+   var end = start;
+   while(end < start + ms) {
+     end = new Date().getTime();
+  }
+}
