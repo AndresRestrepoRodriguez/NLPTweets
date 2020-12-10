@@ -6,8 +6,8 @@ class SMTPConnection:
     def __init__(self):
         self._server = "smtp.gmail.com"
         self._port = 587
-        self._sender = "parallud2019@gmail.com"
-        self._password = "cudanvidia2019"
+        self._sender = "xxxxx@gmail.com"
+        self._password = "password"
         self._connectionSMTP = None
 
     def setConnectionSMTP(self, connectionSMTP):
